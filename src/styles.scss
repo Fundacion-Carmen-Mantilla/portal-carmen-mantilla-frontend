@@ -3,3 +3,120 @@
 @use './assets/layout/layout.scss';
 @use 'primeicons/primeicons.css';
 @use './assets/demo/demo.scss';
+
+/* Paleta de colores personalizada */
+:root {
+    --color-red: #fb0404; /* Rojo */
+    --color-darkblue: #2c4c58; /* Azul Oscuro */
+    --color-green: #afbb8b; /* Verde claro */
+    --color-midblue: #4c5c8b; /* Azul medio */
+    --color-brown: #8c7c74; /* Marrón tostado */
+
+    /* Colores de uso frecuente basados en la paleta */
+    --primary: var(--color-darkblue);   /* Color principal */
+    --secondary: var(--color-midblue);  /* Color secundario */
+    --success: var(--color-green);      /* Éxito */
+    --danger: var(--color-red);         /* Error */
+    --warning: var(--color-brown);      /* Advertencias */
+    --light: #f8f9fa; /* Blanco claro */
+    --dark: #212529; /* Gris oscuro */
+
+    /* Otros valores derivados */
+    --navbar-text-color: var(--light); /* Texto principal en el navbar */
+    --navbar-hover-color: #365d6b; /* Calculado manualmente para ser más claro */
+    --dropdown-hover-bg: var(--secondary); /* Fondo hover de dropdown */
+    --dropdown-hover-color: var(--light); /* Color del texto en hover */
+
+    /* Transiciones suaves */
+    --transition-speed: 0.3s;
+
+    /* Colores suaves para notificaciones y contextos más amigables */
+    --soft-red: #fb8080; /* Rojo suave (calculado manualmente) */
+    --soft-green: #d3dfb4; /* Verde suave (calculado manualmente) */
+    --soft-blue: #a0a9cc; /* Azul suave (calculado manualmente) */
+    --soft-brown: #bba594; /* Marrón suave (calculado manualmente) */
+
+    --toast-success-bg: var(--soft-green); /* Fondo para toasts de éxito */
+    --toast-error-bg: var(--soft-red); /* Fondo para toasts de error */
+    --toast-info-bg: var(--soft-blue); /* Fondo para toasts de info */
+    --toast-warning-bg: var(--soft-brown); /* Fondo para toasts de advertencia */
+}
+
+/* Aplicar fuentes globalmente */
+body {
+    font-family: 'Roboto', sans-serif; /* Fuente para los párrafos (predeterminada) */
+    color: var(--dark);
+    background-color: var(--light);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Fuente para los títulos */
+    color: var(--primary); /* Títulos con el color principal */
+}
+
+p {
+    line-height: 1.6; /* Aumentar el espaciado entre líneas para mayor legibilidad */
+}
+
+a {
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto para los enlaces */
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--success); /* Cambiar color al pasar el cursor sobre enlaces */
+}
+
+
+.text-custom-primary {
+    color: var(--primary);
+}
+
+.text-custom-secondary {
+    color: var(--secondary);
+}
+
+.text-custom-success {
+    color: var(--success);
+}
+
+.text-custom-danger {
+    color: var(--danger);
+}
+
+.text-custom-light {
+    color: var(--light);
+}
+
+.text-custom-dark {
+    color: var(--dark);
+}
+
+/* Clases de fondo personalizadas */
+.bg-custom-primary {
+    background-color: var(--primary);
+}
+
+.bg-custom-secondary {
+    background-color: var(--secondary);
+}
+
+.bg-custom-success {
+    background-color: var(--success);
+}
+
+.bg-custom-danger {
+    background-color: var(--danger);
+}
+
+.bg-custom-light {
+    background-color: var(--light);
+}
+
+.bg-custom-dark {
+    background-color: var(--dark);
+}

@@ -1,0 +1,29 @@
+:host ::ng-deep {
+    .p-password input {
+        width: 100% !important;
+    }
+
+    .p-button {
+        background-color: var(--primary) !important;
+        border-color: var(--primary) !important;
+
+        &:hover {
+            background-color: var(--color-midblue) !important;
+            border-color: var(--color-midblue) !important;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px var(--color-green) !important;
+        }
+    }
+
+    input:focus {
+        box-shadow: 0 0 0 2px var(--color-green) !important;
+        border-color: var(--color-midblue) !important;
+    }
+
+    .p-password-input:focus {
+        box-shadow: 0 0 0 2px var(--color-green) !important;
+        border-color: var(--color-midblue) !important;
+    }
+}

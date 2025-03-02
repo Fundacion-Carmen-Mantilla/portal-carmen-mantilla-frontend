@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
@@ -7,15 +7,19 @@ import { AppMenuitem } from './app.menuitem';
 @Component({
     selector: 'app-menu',
     standalone: true,
-    imports: [CommonModule, AppMenuitem, RouterModule],
-    template: `<ul class="layout-menu">
-        <ng-container *ngFor="let item of model; let i = index">
-            <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-            <li *ngIf="item.separator" class="menu-separator"></li>
-        </ng-container>
-    </ul> `
+    imports: [AppMenuitem, RouterModule],
+    template: ` <ul class="layout-menu">
+        @for (item of model; track item; let i = $index) {
+            @if (!item.separator) {
+                <li app-menuitem [item]="item" [index]="i" [root]="true"></li>
+            }
+            @if (item.separator) {
+                <li class="menu-separator"></li>
+            }
+        }
+    </ul>`
 })
-export class AppMenu {
+export class AppMenu implements OnInit {
     model: MenuItem[] = [];
 
     ngOnInit() {
@@ -25,130 +29,182 @@ export class AppMenu {
                 items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
             {
-                label: 'UI Components',
-                items: [
-                    { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
-                    { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                    { label: 'Button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
-                    { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
-                    { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                    { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
-                    { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                    { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                    { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                    { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
-                    { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                    { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                    { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                    { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
-                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
-                ]
-            },
-            {
-                label: 'Pages',
-                icon: 'pi pi-fw pi-briefcase',
-                routerLink: ['/pages'],
+                label: 'Publicaciones',
                 items: [
                     {
-                        label: 'Landing',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/landing']
+                        label: 'Multimedia',
+                        icon: 'pi pi-fw pi-images',
+                        routerLink: ['/publications/multimedia']
                     },
                     {
-                        label: 'Auth',
-                        icon: 'pi pi-fw pi-user',
-                        items: [
-                            {
-                                label: 'Login',
-                                icon: 'pi pi-fw pi-sign-in',
-                                routerLink: ['/auth/login']
-                            },
-                            {
-                                label: 'Error',
-                                icon: 'pi pi-fw pi-times-circle',
-                                routerLink: ['/auth/error']
-                            },
-                            {
-                                label: 'Access Denied',
-                                icon: 'pi pi-fw pi-lock',
-                                routerLink: ['/auth/access']
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Crud',
-                        icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/pages/crud']
-                    },
-                    {
-                        label: 'Not Found',
-                        icon: 'pi pi-fw pi-exclamation-circle',
-                        routerLink: ['/pages/notfound']
-                    },
-                    {
-                        label: 'Empty',
-                        icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/pages/empty']
-                    }
-                ]
-            },
-            {
-                label: 'Hierarchy',
-                items: [
-                    {
-                        label: 'Submenu 1',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {
-                                label: 'Submenu 1.1',
-                                icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    { label: 'Submenu 1.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 1.1.2', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 1.1.3', icon: 'pi pi-fw pi-bookmark' }
-                                ]
-                            },
-                            {
-                                label: 'Submenu 1.2',
-                                icon: 'pi pi-fw pi-bookmark',
-                                items: [{ label: 'Submenu 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Submenu 2',
-                        icon: 'pi pi-fw pi-bookmark',
-                        items: [
-                            {
-                                label: 'Submenu 2.1',
-                                icon: 'pi pi-fw pi-bookmark',
-                                items: [
-                                    { label: 'Submenu 2.1.1', icon: 'pi pi-fw pi-bookmark' },
-                                    { label: 'Submenu 2.1.2', icon: 'pi pi-fw pi-bookmark' }
-                                ]
-                            },
-                            {
-                                label: 'Submenu 2.2',
-                                icon: 'pi pi-fw pi-bookmark',
-                                items: [{ label: 'Submenu 2.2.1', icon: 'pi pi-fw pi-bookmark' }]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                label: 'Get Started',
-                items: [
-                    {
-                        label: 'Documentation',
+                        label: 'Noticias',
                         icon: 'pi pi-fw pi-book',
-                        routerLink: ['/documentation']
+                        routerLink: ['/publications/news']
                     },
                     {
-                        label: 'View Source',
-                        icon: 'pi pi-fw pi-github',
-                        url: 'https://github.com/primefaces/sakai-ng',
-                        target: '_blank'
+                        label: 'Desarrollo Cultural',
+                        icon: 'pi pi-fw pi-palette',
+                        routerLink: ['/publications/cultural-development'],
+                        items: [
+                            {
+                                label: 'Ministerio de Cultura',
+                                icon: 'pi pi-fw pi-building',
+                                items: [
+                                    {
+                                        label: '2020',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: '#ComparteLoQueSomos',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: '2021',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Aprendiendo y danzando',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            },
+                                            {
+                                                label: 'Formados danzamos unidos',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: '2022',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Aprendiendo, danzando y formados seguimos unidos',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: '2023',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Aprendiendo, danzamos por la vida, al ritmo de la paz',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: '2024',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Aprendiendo, conservamos el patrimonio cultural y medio ambiental',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/ministry/2021']
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Gobernación del Magdalena',
+                                icon: 'pi pi-fw pi-building',
+                                items: [
+                                    {
+                                        label: '2020',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Formar para danzar en el pais del pocabuy',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/governorship/2021']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        label: '2023',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        items: [
+                                            {
+                                                label: 'Talleres de danza conservamos la tradicion y el patrimonio',
+                                                icon: 'pi pi-fw pi-bookmark',
+                                                routerLink: ['/publications/cultural-development/governorship/2021']
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                label: 'Danza por Parejas',
+                                icon: 'pi pi-fw pi-building',
+                                items: [
+                                    {
+                                        label: '2020',
+                                        icon: 'pi pi-fw pi-calendar',
+                                        routerLink: ['/publications/cultural-development/governorship/2021']
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Usuarios',
+                items: [
+                    {
+                        label: 'Administración de Usuarios',
+                        icon: 'pi pi-fw pi-users',
+                        routerLink: ['/users/administration']
+                    },
+                    {
+                        label: 'Roles y Permisos',
+                        icon: 'pi pi-fw pi-shield',
+                        routerLink: ['/users/roles-permissions']
+                    }
+                ]
+            },
+            {
+                label: 'Sistema',
+                icon: 'pi pi-fw pi-cog',
+                routerLink: ['/system'],
+                items: [
+                    {
+                        label: 'Configuración General',
+                        icon: 'pi pi-fw pi-sliders-h',
+                        items: [
+                            {
+                                label: 'General',
+                                icon: 'pi pi-fw pi-globe',
+                                routerLink: ['/system/general-settings']
+                            },
+                            {
+                                label: 'Seguridad',
+                                icon: 'pi pi-fw pi-lock',
+                                routerLink: ['/system/security-settings']
+                            },
+                            {
+                                label: 'Integraciones',
+                                icon: 'pi pi-fw pi-th-large',
+                                routerLink: ['/system/integrations']
+                            },
+                            {
+                                label: 'Personalización',
+                                icon: 'pi pi-fw pi-pencil',
+                                routerLink: ['/system/customization']
+                            },
+                            {
+                                label: 'Mantenimiento',
+                                icon: 'pi pi-fw pi-wrench',
+                                routerLink: ['/system/maintenance']
+                            }
+                        ]
                     }
                 ]
             }
