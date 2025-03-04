@@ -28,7 +28,7 @@ export class LoginPage {
     onLoginSubmit(credentials: LoginCredentials): void {
         this.authService.login(credentials).subscribe({
             next: () => {
-               void this.router.navigate(['/dashboard']);
+               void this.router.navigate(['/features/dashboard']);
             },
             error: (error) => {
                 console.error('Error en el login:', error);
