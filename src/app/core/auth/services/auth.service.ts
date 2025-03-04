@@ -14,7 +14,6 @@ export class AuthService {
     private authRepository: AuthRepository = inject(AuthRepository);
     private tokenService: TokenService = inject(TokenService);
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.tokenService.isTokenValid());
-    private messageService: ToastService = inject(ToastService);
 
     get isAuthenticated$(): Observable<boolean> {
         return this.isAuthenticatedSubject.asObservable();
@@ -25,12 +24,6 @@ export class AuthService {
             tap((response: AccessToken) => {
                 this.tokenService.setToken(response.access_token);
                 this.isAuthenticatedSubject.next(true);
-            }),
-            catchError((error) => {
-                this.messageService.showError(
-                    error.message || 'Error durante el inicio de sesión'
-                );
-                throw error;
             })
         );
     }

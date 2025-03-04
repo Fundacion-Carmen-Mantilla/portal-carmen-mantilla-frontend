@@ -34,7 +34,7 @@ export class AppMenu implements OnInit {
                     {
                         label: 'Multimedia',
                         icon: 'pi pi-fw pi-images',
-                        routerLink: ['/publications/multimedia']
+                        routerLink: ['features/multimedia/create'],
                     },
                     {
                         label: 'Noticias',
