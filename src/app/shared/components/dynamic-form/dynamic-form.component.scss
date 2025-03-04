@@ -1,0 +1,7 @@
+:host ::ng-deep {
+    .hide-file-list {
+        .p-fileupload-file-list {
+            display: none;
+        }
+    }
+}
