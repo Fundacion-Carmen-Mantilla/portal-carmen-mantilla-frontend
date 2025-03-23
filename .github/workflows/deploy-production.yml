@@ -1,4 +1,4 @@
-name: Deploy Angular to Production (Manual)
+name: Deploy Angular to Production🚀 (Manual)
 
 on:
     workflow_dispatch:
@@ -7,7 +7,7 @@ on:
                 description: 'Rama a desplegar en Production'
                 required: true
                 type: string
-                default: 'main'
+                default: 'master'
 
 jobs:
     deploy:
@@ -18,23 +18,37 @@ jobs:
               uses: actions/checkout@v4
               with:
                   ref: ${{ github.event.inputs.branch }}
+                  fetch-depth: 0
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
+                  cache: 'npm'
+
+            - name: Cache Node Modules
+              uses: actions/cache@v3
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
             - name: Instalar dependencias
-              run: npm ci
+              run: npm ci --prefer-offline
 
             - name: Build para Production
-              run: npm run build -- --configuration=production  # Configuración de producción
+              run: |
+                  npm install -g @angular/cli@latest
+                  npm run build -- --configuration=production
 
-            - name: Desplegar a Production via SFTP
-              uses: SamKirkland/FTP-Deploy-Action@v4
+            - name: Verificar archivos construidos
+              run: ls -la ./dist/sakai-ng/browser
+
+            - name: Desplegar a Staging via SFTP
+              uses: SamKirkland/FTP-Deploy-Action@v4.3.4
               with:
                   server: ${{ secrets.PRODUCTION_FTP_SERVER }}
                   username: ${{ secrets.PRODUCTION_FTP_USERNAME }}
                   password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
-                  local-dir: ./dist/sakai-ng/
-                  remote-dir: /home/production/portal-frontend  # Ajusta según tu hosting
+                  local-dir: ./dist/sakai-ng/browser/
+                  server-dir: /home/production/portal-frontend/ # Ruta exacta
+                  dangerous-clean-slate: true
