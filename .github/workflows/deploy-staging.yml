@@ -41,7 +41,7 @@ jobs:
                   npm run build -- --configuration=staging
 
             - name: Verificar archivos construidos
-              run: ls -la ./dist/sakai-ng
+              run: ls -la ./dist/sakai-ng/browser
 
             - name: Desplegar a Staging via SFTP
               uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -49,6 +49,6 @@ jobs:
                   server: ${{ secrets.STAGING_FTP_SERVER }}
                   username: ${{ secrets.STAGING_FTP_USERNAME }}
                   password: ${{ secrets.STAGING_FTP_PASSWORD }}
-                  local-dir: ./dist/sakai-ng/
-                  server-dir: home/staging/portal-frontend/  # Ruta exacta
+                  local-dir: ./dist/sakai-ng/browser/
+                  server-dir: /home/staging/portal-frontend/ # Ruta exacta
                   dangerous-clean-slate: true
