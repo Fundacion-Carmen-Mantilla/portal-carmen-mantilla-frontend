@@ -18,13 +18,13 @@ jobs:
               uses: actions/checkout@v4
               with:
                   ref: ${{ github.event.inputs.branch }}
-                  fetch-depth: 0  # Mejora: Clona todo el historial de Git
+                  fetch-depth: 0
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: '20'
-                  cache: 'npm'  # Habilita cache de npm
+                  cache: 'npm'
 
             - name: Cache Node Modules
               uses: actions/cache@v3
@@ -33,24 +33,22 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
             - name: Instalar dependencias
-              run: |
-                  npm ci --prefer-offline  # Usa el cache si está disponible
+              run: npm ci --prefer-offline
 
             - name: Build para Staging
               run: |
-                  npm install -g @angular/cli@latest  # Asegura la versión correcta de Angular CLI
+                  npm install -g @angular/cli@latest
                   npm run build -- --configuration=staging
 
             - name: Verificar archivos construidos
-              run: ls -la ./dist/sakai-ng  # Debug: Confirma que los archivos existen
+              run: ls -la ./dist/sakai-ng
 
             - name: Desplegar a Staging via SFTP
-              uses: SamKirkland/FTP-Deploy-Action@v4.3.4  # Versión explícita (última estable)
+              uses: SamKirkland/FTP-Deploy-Action@v4.3.4
               with:
                   server: ${{ secrets.STAGING_FTP_SERVER }}
                   username: ${{ secrets.STAGING_FTP_USERNAME }}
                   password: ${{ secrets.STAGING_FTP_PASSWORD }}
                   local-dir: ./dist/sakai-ng/
-                  remote-dir: /home/staging/portal-frontend/
+                  server-dir: /home/fundacio/home/staging/portal-frontend/  # Ruta exacta
                   dangerous-clean-slate: true
-                  git-sftp-args: '-o ConnectTimeout=60'  # Aumenta tiempo de conexión
