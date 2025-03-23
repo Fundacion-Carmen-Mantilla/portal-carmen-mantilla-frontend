@@ -39,7 +39,7 @@ export class AppMenu implements OnInit {
                     {
                         label: 'Noticias',
                         icon: 'pi pi-fw pi-book',
-                        routerLink: ['/publications/news']
+                        routerLink: ['features/news/create']
                     },
                     {
                         label: 'Desarrollo Cultural',

@@ -8,5 +8,9 @@ export const featuresRoutes: Routes = [
     {
         path: 'multimedia',
         loadChildren: () => import('./multimedia/multimedia.routes').then((m) => m.multimediaRoutes)
+    },
+    {
+        path: 'news',
+        loadChildren: () => import('./news/news.routes').then((m) => m.newsRoutes)
     }
 ];
