@@ -1,0 +1,41 @@
+name: Deploy Angular to Staging (Manual)
+
+on:
+    workflow_dispatch:
+        inputs:
+            branch:
+                description: 'Rama a desplegar en Staging'
+                required: true
+                type: string
+                default: 'main'  # Rama por defecto
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout de la rama seleccionada
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.inputs.branch }}  # Usa la rama ingresada
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Instalar dependencias
+              run: npm ci
+
+            - name: Build para Staging
+              run: npm run build -- --configuration=staging  # Usa la configuración de staging
+
+            - name: Desplegar a Staging via SFTP
+              uses: SamKirkland/FTP-Deploy-Action@v4
+              with:
+                  server: ${{ secrets.STAGING_FTP_SERVER }}
+                  username: ${{ secrets.STAGING_FTP_USERNAME }}
+                  password: ${{ secrets.STAGING_FTP_PASSWORD }}
+                  local-dir: ./dist/sakai-ng/  # Ruta del build (según tu angular.json)
+                  remote-dir: /home/staging/portal-frontend  # Ruta en tu hosting
+                  dangerous-clean-slate: true  # Opcional: Limpia archivos antiguos

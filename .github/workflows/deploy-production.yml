@@ -1,0 +1,40 @@
+name: Deploy Angular to Production (Manual)
+
+on:
+    workflow_dispatch:
+        inputs:
+            branch:
+                description: 'Rama a desplegar en Production'
+                required: true
+                type: string
+                default: 'main'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout de la rama seleccionada
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.inputs.branch }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+
+            - name: Instalar dependencias
+              run: npm ci
+
+            - name: Build para Production
+              run: npm run build -- --configuration=production  # Configuración de producción
+
+            - name: Desplegar a Production via SFTP
+              uses: SamKirkland/FTP-Deploy-Action@v4
+              with:
+                  server: ${{ secrets.PRODUCTION_FTP_SERVER }}
+                  username: ${{ secrets.PRODUCTION_FTP_USERNAME }}
+                  password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
+                  local-dir: ./dist/sakai-ng/
+                  remote-dir: /home/production/portal-frontend  # Ajusta según tu hosting
