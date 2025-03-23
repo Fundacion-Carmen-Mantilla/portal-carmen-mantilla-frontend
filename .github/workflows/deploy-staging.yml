@@ -50,5 +50,5 @@ jobs:
                   username: ${{ secrets.STAGING_FTP_USERNAME }}
                   password: ${{ secrets.STAGING_FTP_PASSWORD }}
                   local-dir: ./dist/sakai-ng/
-                  server-dir: /home/fundacio/home/staging/portal-frontend/  # Ruta exacta
+                  server-dir: home/staging/portal-frontend/  # Ruta exacta
                   dangerous-clean-slate: true
