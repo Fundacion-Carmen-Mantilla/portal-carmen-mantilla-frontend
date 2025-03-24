@@ -50,5 +50,5 @@ jobs:
                   username: ${{ secrets.PRODUCTION_FTP_USERNAME }}
                   password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
                   local-dir: ./dist/sakai-ng/browser/
-                  server-dir: /home/production/portal-frontend/ # Ruta exacta
+                  server-dir: ./
                   dangerous-clean-slate: true
