@@ -29,6 +29,11 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
+                            },
+                            {
+                                "glob": ".htaccess",
+                                "input": "src",
+                                "output": "/"
                             }
                         ],
                         "styles": [
@@ -105,8 +110,7 @@
                             {
                                 "glob": "**/*",
                                 "input": "public"
-                            },
-                            "src/.htaccess"
+                            }
                         ],
                         "styles": [
                             "src/styles.scss"
