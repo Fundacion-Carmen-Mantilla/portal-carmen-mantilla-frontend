@@ -7,11 +7,12 @@ export interface MultimediaImage {
     order?: number;
 }
 
-export interface Multimedia {
+export interface CulturalDevelopment {
     id?: number;
     title: string;
     description: string;
-    category: string;
+    institution: string;
+    project: string;
     tags: string[];
     images: MultimediaImage[];
     status: 'draft' | 'published' | 'archived';

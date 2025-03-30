@@ -12,5 +12,9 @@ export const featuresRoutes: Routes = [
     {
         path: 'news',
         loadChildren: () => import('./news/news.routes').then((m) => m.newsRoutes)
+    },
+    {
+        path: 'cultural-development',
+        loadChildren: () => import('./cultural-development/cultural-development.routes').then((m) => m.CulturalDevelopmentRoutes)
     }
 ];
